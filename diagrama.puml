@@ -1,0 +1,54 @@
+@startuml
+class Juego
+class Nivel
+class Personaje
+class Payaso
+class Vida
+class Animacion
+class Escenario
+class Distancia
+class Fondo
+class Obstaculo
+class Musica
+class Sonido
+class TipoJuego
+class Bonus
+class Puntaje
+class Control
+class Accion
+class Avance
+class Jugador
+class Velocidad
+class Salto
+class Posicion
+class Energia
+class Colision
+class CircusCharlie
+class Menu
+CircusCharlie --|> Juego
+Juego *-- Nivel
+Juego *-- Menu
+Juego *-- Escenario
+Escenario *-- Musica
+Escenario *-- Distancia
+Escenario *-- Fondo
+Escenario *-- Obstaculo
+Escenario *-- Sonido
+Escenario *-- Animacion
+Nivel *-- TipoJuego
+Nivel *-- Puntaje
+Nivel *-- Bonus
+Nivel *-- Personaje
+Personaje <|-- Payaso
+Jugador *-- Control
+Control *-- Accion
+Control o-- Avance
+Payaso *-- Accion
+Payaso "1" *-- "0..3" Vida
+Payaso *-- Colision
+Velocidad --|> Accion
+Salto --|> Accion
+Posicion --|> Accion
+Vida *-- Energia
+@enduml
+
