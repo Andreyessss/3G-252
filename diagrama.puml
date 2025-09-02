@@ -1,34 +1,133 @@
 @startuml
-class Juego
-class Nivel
-class Personaje
-class Payaso
-class Vida
-class Animacion
-class Escenario
+class Juego {
+  +iniciar()
+  +terminar()
+}
+
+class Nivel {
+  +cargar()
+  +finalizar()
+}
+
+class Personaje {
+  -puntaje : Puntaje
+  -bonus : Bonus
+  +mover()
+  +saltar()
+}
+
+class Payaso {
+  -vidas[0..3] : Vida
+  -colision : Colision
+  +recibirGolpe()
+  +caer()
+}
+
+class Vida {
+  -energia : Energia
+  +restar()
+  +sumar()
+}
+
+class Animacion {
+  +iniciar()
+  +detener()
+}
+
+class Escenario {
+  -distancia : Distancia
+  -fondo : Fondo
+  -obstaculos[ ] : Obstaculo
+  -sonido : Sonido
+  -animacion : Animacion
+  -musica : Musica
+  +dibujar()
+  +actualizar()
+}
+
 class Distancia
+
 class Fondo
-class Obstaculo
-class Musica
-class Sonido
-class TipoJuego
-class Bonus
-class Puntaje
-class Control
-class Accion
-class Avance
-class Jugador
-class Velocidad
-class Salto
-class Posicion
-class Energia
-class Colision
-class CircusCharlie
-class Menu
+
+class Obstaculo {
+  +aparecer()
+}
+
+class Musica {
+  +reproducir()
+  +detener()
+}
+
+class Sonido {
+  +emitir()
+}
+
+class TipoJuego {
+  +seleccionar()
+}
+
+class Bonus {
+  +otorgar()
+}
+
+class Puntaje {
+  +sumar()
+  +mostrar()
+}
+
+class Control {
+  -acciones[ ] : Accion
+  +mover()
+  +pausar()
+}
+
+class Accion {
+  +ejecutar()
+}
+
+class Jugador {
+  -personaje : Personaje
+  -control : Control
+  +iniciarJuego()
+  +seleccionarPersonaje()
+}
+
+class Velocidad {
+  +aplicar()
+}
+
+class Salto {
+  +ejecutar()
+}
+
+class Posicion {
+  +actualizar()
+}
+
+class Energia {
+  +disminuir()
+  +recuperar()
+}
+
+class Colision {
+  +detectar()
+}
+
+class CircusCharlie {
+  +iniciarCircus()
+}
+
+class Seleccion {
+  +elegir()
+}
+
+' Relaciones
 CircusCharlie --|> Juego
-Juego *-- Nivel
 Juego *-- Menu
-Juego *-- Escenario
+Nivel --* Menu
+Jugador o-- Seleccion
+Nivel *-- Escenario
+Menu *-- Seleccion
 Escenario *-- Musica
 Escenario *-- Distancia
 Escenario *-- Fondo
@@ -36,19 +135,17 @@ Escenario *-- Obstaculo
 Escenario *-- Sonido
 Escenario *-- Animacion
 Nivel *-- TipoJuego
-Nivel *-- Puntaje
-Nivel *-- Bonus
-Nivel *-- Personaje
+Personaje *-- Puntaje
+Personaje *-- Bonus
+Jugador *-- Personaje
 Personaje <|-- Payaso
-Jugador *-- Control
+Jugador o-- Control
 Control *-- Accion
-Control o-- Avance
-Payaso *-- Accion
-Payaso "1" *-- "0..3" Vida
-Payaso *-- Colision
+Payaso o-- Accion
 Velocidad --|> Accion
 Salto --|> Accion
 Posicion --|> Accion
-Vida *-- Energia
+Vida o-- Energia
+Payaso *-- Colision
+Payaso "1" *-- "0..3" Vida
 @enduml
-
