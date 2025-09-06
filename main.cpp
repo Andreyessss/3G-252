@@ -1,10 +1,10 @@
 #include <iostream>
-
+#include <Foco.hpp>
 using namespace std;
 int main()
 {
-
-    cout<<"hola munde" <<endl;
-    
+    Foco foquito;
+    foquito.Encender();
+    foquito.Apagar();
     return 0;
 }
