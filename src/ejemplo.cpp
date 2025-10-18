@@ -1,30 +1,67 @@
 #include <iostream>
-using namespace std; 
-
+#include <string>
+using namespace std;
+#include <thread>
+#include <chrono>
 #include <ftxui/screen/color.hpp>
 #include <ftxui/screen/screen.hpp>
 #include <ftxui/component/component.hpp>
 #include <ftxui/component/screen_interactive.hpp>
 using namespace ftxui;
 
+string nave = 
+string("//   ___           \n")+
+string("//  ___/   \\___   \n")+
+string("// /   '---'   \\  \n")+
+string("// '--_______--'   \n")+
+string("//      / \\       \n")+
+string("//     /   \\      \n")+
+string("//    / \\O/ \\     \n")+
+string("//   /   |   \\      \n")+
+string("//  /   / \\   \\     \n") ;
+
 int main(int argc, char const *argv[])
 {
+    
     auto pantalla = Screen::Create(
         Dimension::Full(),
-        Dimension::Fixed(10)
-    );
+        Dimension::Fixed(10));
 
     int x = 0;
     int y = 0;
 
-    auto& pixel = pantalla.PixelAt(1,1);
-    pixel.blink = true;
-    pixel.background_color = Color::Blue3;
-    pixel.background_color = Color::Red;
-    pixel.character = 'A';
+    while (true)
+    {
+        x++;
+        stringstream ss(nave);
+        string linea;
+        int noLinea = 0;
+        
 
-    pantalla.Print();
-    cout<<endl;
+        while (getline(ss, linea)){
+
+        int columna = 0;
+        for (auto &&letra : linea){
+        
+        auto &pixel = pantalla.PixelAt(x + columna, y + noLinea);
+        pixel.character = letra;
+        columna++;
+        }
+        noLinea++;
+        }
+
+        
+        pantalla.Print();
+        pantalla.Clear();
+        this_thread::sleep_for(chrono::milliseconds(200));
+        cout << pantalla.ResetPosition();
+    }
 
     return 0;
 }
+
+
+
+
+
+
